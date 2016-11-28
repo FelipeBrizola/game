@@ -20,38 +20,13 @@ import game.Car;
 import game.Cenario;
 import game.Player;
 import game.Road;
-import game.Hole;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.awt.TextRenderer;
 
-/**
- * Um jogo onde o player � como um motorista de uma motocicleta.
- * O Objetivo do jogo � desviar de todos os carros e chegar at� o final
- * Se o motorista bater em um carro ele perde, se bater na parede perde.
- * Controle para esquerda e direita nas setas < >
- * */
 
-/**
- * 
-1)   O jogo deve possuir objetivo, inicio e fim e controle de vit�ria e derrota. A professora dever� classific�-lo como um jogo.
 
-2)  O jogador deve interagir com o jogo, ou seja simula��o n�o � considerada jogo.
-
-3)  Possuir pelo menos 4 componentes geom�tricos diferentes.
-	1 - Player � uma caixa
-	2 - Tem uma Piramide
-	3 - Tem um Cubo
-	
-	A id�ia � criar alguns carros ou caminhoes e talvez outras motos, 
-	e fazer a intersec��o como se fosse caixa.
-
-4) Possuir anima��o de c�mera(DONE) e de pelo menos 3 objetos diferentes.
-
-5)  Possuir intera��o com mouse e/ou teclado. DONE
-
- * */
 public class Game implements GameConfiguration {
 	
 	GameEngine engine = new GameEngine();
@@ -63,7 +38,6 @@ public class Game implements GameConfiguration {
 	Player player = new Player();
 	Road road = new Road();	
 	ArrayList<Car> cars = new ArrayList<>();
-	ArrayList<Hole> holes = new ArrayList<>();
 	Cenario cenario = new Cenario();
 	
 	ActionListener actionAddCar = new ActionListener() {
@@ -84,14 +58,6 @@ public class Game implements GameConfiguration {
         engine.start();
         
 		timerAddCar.start();
-		addHoles();
-	}
-    
-	private void addHoles() {
-		for( int i = 0; i < TOTAL_HOLES; i++){
-			holes.add( new Hole( ) );
-		} 
-		
 	}
 
 	OnUpdateCallback updateCallback = new OnUpdateCallback() {
@@ -135,18 +101,10 @@ public class Game implements GameConfiguration {
 					}
 				}
 				
-				
-				for( Hole hole: holes ){
-					if( ColisionDetector.isColiding(player, hole)){
-						player.tilt(hole.radius);
-					}
-					hole.draw2D(gl, glu);
-				}
-				
 				if( player.z > ROAD_SIZE)
 					playerWin();
 				
-				if( player.x > -MOTO_SIZE_X + WIDTH_ROAD_SIZE/2 || player.x < (-WIDTH_ROAD_SIZE)/2){
+				if( player.x > -CAR_SIZE_X + WIDTH_ROAD_SIZE/2 || player.x < (-WIDTH_ROAD_SIZE)/2){
 					playerLose();
 				}
 				
@@ -177,7 +135,7 @@ public class Game implements GameConfiguration {
 			// Display Distance Left
 			renderer.beginRendering(850, 850);
 			renderer.setColor(1.0f, 1.0f, 1.0f, 0.8f);
-			renderer.draw("Left: "+((int)((ROAD_SIZE - player.z)/MOTO_MAX_SPEED))+ " m", 20, 800);
+			renderer.draw("Left: "+((int)((ROAD_SIZE - player.z)/CAR_MAX_SPEED))+ " m", 20, 800);
 			renderer.endRendering();	
 			
 			//Display Velocity
@@ -227,8 +185,8 @@ public class Game implements GameConfiguration {
 		public void updateCamera(GLU glu) {
 			float x_aux = (player.x) / 7;
 	        glu.gluLookAt(
-	        		player.x +(MOTO_SIZE_X/2) + x_aux , player.y +35, player.z - 50, 	//WHERE
-	        		player.x+(MOTO_SIZE_X/2) + x_aux, player.y+35, player.z,	//AT 
+	        		player.x +(CAR_SIZE_X/2) + x_aux , player.y +35, player.z - 50, 	//WHERE
+	        		player.x+(CAR_SIZE_X/2) + x_aux, player.y+35, player.z,	//AT 
 	        		0, 1, 0 	//SKY
 	        		);
 		}

@@ -97,41 +97,43 @@ public class Car extends GameObject {
 	@Override
 	public void draw(GL2 gl) {
 		this.gl = gl;
-		gl.glBegin(GL2.GL_QUADS); 
-		gl.glColor3f(1.0f, 1.0f, 1.0f);
+		gl.glBegin(GL2.GL_QUADS);
 		
-	    // Define vertices in counter-clockwise (CCW) order with normal pointing out
-			  // Top face
+		float[] color = new float[3];
+		color =  getColor(false);
+		gl.glColor3f(color[0], color[1], color[2]);
+		
+			// cima			
 			vertE();
 			vertF();
 			vertH();
 			vertG();
 		 
-		      // Bottom face
+		    // baixo
 			vertA();
 			vertB();
 			vertD();
 			vertC();
 		 
-		      // Front face  
+		    // frente  
 			vertC();
 			vertD();
 			vertH();
 			vertG();
 		 
-		      // Back face (z = -1.0f)
+		    // atras
 			vertA();
 			vertB();
 			vertF();
 			vertE();
 		 
-		      // Left face (x = -1.0f)
+		    // esquerda
 			vertA();
 			vertC();
 			vertG();
 			vertE();
 		 
-		      // Right face (x = 1.0f)
+		    // direita
 			vertB();
 			vertD();
 			vertH();
@@ -140,7 +142,9 @@ public class Car extends GameObject {
 		gl.glEnd();  // End of drawing color-cube
 	
 		gl.glBegin(GL2.GL_LINES);
-		gl.glColor3f(0f, 0f, 0f);
+		boolean isLine = true;
+		color = getColor(isLine);
+		gl.glColor3f(color[0], color[1], color[2]);
 		gl.glLineWidth(5f);
 		
 		//First Square
@@ -187,6 +191,36 @@ public class Car extends GameObject {
 		gl.glEnd();  
 	}
 	
+	private float[] getColor(boolean isLine) {		
+		float[] ret = new float[3];
+		if (!isLine) {
+			if (this.ROAD_SIZE - z > 0.5 * this.ROAD_SIZE) {
+				ret[0] = 1f;
+				ret[1] = 1f;
+				ret[2] = 1f;
+			}
+			else{
+				ret[0] = 0f;
+				ret[1] = 0f;
+				ret[2] = 0f;
+			}
+		}
+		else {
+			if (this.ROAD_SIZE - z > 0.5 * this.ROAD_SIZE) {
+				ret[0] = 0f;
+				ret[1] = 0f;
+				ret[2] = 0f;
+			}
+			else{
+				ret[0] = 1f;
+				ret[1] = 1f;
+				ret[2] = 1f;
+			}
+		}
+		
+		return ret;
+	}
+
 	public void vertA(){
 		gl.glVertex3f( x , y , z);
 	}

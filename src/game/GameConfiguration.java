@@ -4,21 +4,19 @@ import com.jogamp.newt.event.KeyEvent;
 
 public interface GameConfiguration{ 
 	
-
 	//Window
 	static final int WIDTH = 1024, HEIGHT = 720, FPS = 60;
 
 	//Cenario Settings
 	static final int TIME_TO_ADD_CAR = 650;
 	static final int MINIMUM_SPEED = 4;
-	static final int TOTAL_HOLES = 150;
 	
 	//CAMERA DISTANCE
 	static final int CAMERA_DISTANCE = 20000;
 	
 	//Player Settings
-	static final int MOTO_MAX_SPEED = 80;
-	static final int MOTO_SIZE_X = 10, MOTO_SIZE_Y = 20, MOTO_SIZE_Z = 30;
+	static final int CAR_MAX_SPEED = 80;
+	static final int CAR_SIZE_X = 10, CAR_SIZE_Y = 20, CAR_SIZE_Z = 30;
 	static final float COLOR_RED = 0.5f, COLOR_GREEN = 0.0f, COLOR_BLUE = 0.0f;
 	
 	//Control
@@ -33,7 +31,7 @@ public interface GameConfiguration{
 	
 	
 	//Road Settings
-	static final int ROAD_SIZE =  30 * 60 * MOTO_MAX_SPEED;
+	static final int ROAD_SIZE =  30 * 60 * CAR_MAX_SPEED;
 	static final int WIDTH_ROAD_SIZE = 300;
 	static final int WIDTH_ROAD_DETAIL = 10;
 	static final int TOTAL_DETAILS = 50;

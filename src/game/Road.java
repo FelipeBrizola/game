@@ -14,15 +14,16 @@ public class Road extends GameObject{
 	@Override
 	public void draw(GL2 gl) {
 		this.gl = gl;
-		gl.glBegin(GL2.GL_QUADS);
-
-		gl.glColor3f(0.5f, 0.5f, 0.5f);
 		
+		// pista		
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glColor3f(0f, 0f, 0f);
 		gl.glVertex3f( x - (WIDTH_ROAD_SIZE/2), y , z + ROAD_SIZE);
 		gl.glVertex3f( x - (WIDTH_ROAD_SIZE/2), y , z);
 		gl.glVertex3f( x + (WIDTH_ROAD_SIZE/2), y , z);
 		gl.glVertex3f( x + (WIDTH_ROAD_SIZE/2), y , z + ROAD_SIZE);
 
+		// listras da pista		
 		gl.glColor3f(1f, 1f, 1f);
 		for( int i = 0; i < ROAD_SIZE / DETAIL_SIZE; i+=2){			
 			
@@ -39,7 +40,5 @@ public class Road extends GameObject{
 		}
 		gl.glEnd(); 		
 	}
-
-
 	
 }

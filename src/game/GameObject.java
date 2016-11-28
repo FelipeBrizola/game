@@ -11,6 +11,16 @@ public class GameObject implements ColisionProperty, GameConfiguration{
 		this.gl = gl;
 	}
 
+	public float randomColor() {
+			
+		float lower = 0;
+		float upper = 1;
+		float res = 0;
+		res = (float) (Math.random() * (upper - lower) + lower);
+		return res;
+		
+	}
+	
 	@Override
 	public float[][] get2DSquare() {
 		return null;

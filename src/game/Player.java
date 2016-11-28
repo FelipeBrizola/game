@@ -11,9 +11,6 @@ import game.GameObject;
 import com.jogamp.opengl.GL2;
 
 public class Player extends GameObject{
-	
-	
-	
 
 	public float speed = 0;
 	public float acceleration = 0;
@@ -49,7 +46,7 @@ public class Player extends GameObject{
 				acceleration = 2;
 			else
 				acceleration = 20/speed;
-			if( speed < MOTO_MAX_SPEED )
+			if( speed < CAR_MAX_SPEED )
 				speed+= acceleration;
 		}
 		if(isBreaking){
@@ -75,33 +72,33 @@ public class Player extends GameObject{
 	}
 	
 	public void vertB(){
-		gl.glVertex3f( x + MOTO_SIZE_X , y, z);
+		gl.glVertex3f( x + CAR_SIZE_X , y, z);
 		
 	}
 	
 	public void vertC(){
-		gl.glVertex3f( x , y, z + MOTO_SIZE_Z);
+		gl.glVertex3f( x , y, z + CAR_SIZE_Z);
 	}
 	
 	public void vertD(){
-		gl.glVertex3f( x + MOTO_SIZE_X, y, z + MOTO_SIZE_Z);		
+		gl.glVertex3f( x + CAR_SIZE_X, y, z + CAR_SIZE_Z);		
 	}
 	
 	public void vertE(){
-		gl.glVertex3f( x , y + MOTO_SIZE_Y , z);
+		gl.glVertex3f( x , y + CAR_SIZE_Y , z);
 	}
 	
 	public void vertF(){
-		gl.glVertex3f( x + MOTO_SIZE_X , y + MOTO_SIZE_Y, z);
+		gl.glVertex3f( x + CAR_SIZE_X , y + CAR_SIZE_Y, z);
 		
 	}
 	
 	public void vertG(){
-		gl.glVertex3f( x , y + MOTO_SIZE_Y, z + MOTO_SIZE_Z);
+		gl.glVertex3f( x , y + CAR_SIZE_Y, z + CAR_SIZE_Z);
 	}
 	
 	public void vertH(){
-		gl.glVertex3f( x + MOTO_SIZE_X, y + MOTO_SIZE_Y , z + MOTO_SIZE_Z);		
+		gl.glVertex3f( x + CAR_SIZE_X, y + CAR_SIZE_Y , z + CAR_SIZE_Z);		
 	}
 	
 	@Override
@@ -111,14 +108,14 @@ public class Player extends GameObject{
 		square[DL][X] = x;
 		square[DL][Z] = z;
 		
-		square[DR][X] = x + MOTO_SIZE_X;
+		square[DR][X] = x + CAR_SIZE_X;
 		square[DR][Z] = z;
 		
 		square[UL][X] = x;
-		square[UL][Z] = z + MOTO_SIZE_Z;
+		square[UL][Z] = z + CAR_SIZE_Z;
 		
-		square[UR][X] = x + MOTO_SIZE_X;
-		square[UR][Z] = z + MOTO_SIZE_Z;
+		square[UR][X] = x + CAR_SIZE_X;
+		square[UR][Z] = z + CAR_SIZE_Z;
 		
 		return square;
 	}
@@ -128,11 +125,14 @@ public class Player extends GameObject{
 	@Override
 	public void draw(GL2 gl) {
 		this.gl = gl;
-		colorize();
 		
-		gl.glBegin(GL2.GL_QUADS); 
+		//	red, green, blue	
+		float[] color;
+		color = getColor();
 		
-	    // Define vertices in counter-clockwise (CCW) order with normal pointing out
+		gl.glBegin(GL2.GL_QUADS);
+		gl.glColor3f(color[0], color[1], color[2]);
+		
 			  // Top face
 			vertE();
 			vertF();
@@ -221,12 +221,20 @@ public class Player extends GameObject{
 	}
 	
 
-	public void colorize(){
-		gl.glColor3f(COLOR_RED, COLOR_GREEN, COLOR_BLUE);     // Green
+	// Apos 50% do jogo completo, player troca de cor;	
+	public float[] getColor(){
+		float[] ret = new float[3];
+		if (this.ROAD_SIZE - z > 0.5 * this.ROAD_SIZE) {
+			ret[0] = 0f;
+			ret[1] = 0f;
+			ret[2] = 1f;
+		}
+		else{
+			ret[0] = 1f;
+			ret[1] = 0f;
+			ret[2] = 0f;
+		}
+		return ret;
 	}
-	
-
-	
-	
 	
 }
